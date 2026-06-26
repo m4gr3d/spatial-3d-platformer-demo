@@ -1,0 +1,150 @@
+[gd_scene format=3 uid="uid://po63m4srixl4"]
+
+[ext_resource type="Script" uid="uid://bgipl6okwmd2d" path="res://Scenes/demo_scene.gd" id="1_lrq5r"]
+[ext_resource type="PackedScene" uid="uid://0t0qb3qjq6my" path="res://Scenes/PlatformRed.tscn" id="2_4lh3q"]
+[ext_resource type="PackedScene" uid="uid://cf0w0skqs3k64" path="res://Scenes/player.tscn" id="2_21dfl"]
+[ext_resource type="Script" uid="uid://deyly5ovcxuue" path="res://Scripts/DeadZone.gd" id="4_8ry15"]
+[ext_resource type="PackedScene" uid="uid://bk5n0tn4k1l0c" path="res://Scenes/Coin.tscn" id="5_4fiv6"]
+[ext_resource type="Script" uid="uid://c6bt5hiavatqs" path="res://Scripts/GameManager.gd" id="6_8fvkd"]
+[ext_resource type="Texture2D" uid="uid://r21u5e70vw6t" path="res://Assets/Textures/coin.png" id="7_ow7xm"]
+[ext_resource type="Script" uid="uid://diw6vt2iv8le" path="res://Scripts/GameUI.gd" id="7_x8whp"]
+
+[sub_resource type="Environment" id="Environment_g4ka7"]
+background_color = Color(0.764706, 0.764706, 0.764706, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.662745, 0.694118, 0.772549, 1)
+ambient_light_energy = 1.15
+tonemap_exposure = 0.75
+ssao_radius = 0.45
+ssao_intensity = 1.0
+ssao_power = 15.0
+sdfgi_use_occlusion = true
+glow_intensity = 2.0
+fog_light_color = Color(0.647059, 0.678431, 0.72549, 1)
+volumetric_fog_temporal_reprojection_enabled = false
+adjustment_brightness = 1.06
+adjustment_contrast = 0.95
+adjustment_saturation = 1.09
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_asf4q"]
+size = Vector3(128, 17, 112)
+
+[sub_resource type="SystemFont" id="SystemFont_1ixsq"]
+font_names = PackedStringArray("Star Choco")
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_656xb"]
+font_names = PackedStringArray("Star Choco")
+
+[sub_resource type="LabelSettings" id="LabelSettings_igq7x"]
+font = SubResource("SystemFont_656xb")
+font_size = 50
+font_color = Color(0.996094, 0.691406, 0.261719, 1)
+
+[node name="World" type="XROrigin3D" unique_id=288847406]
+script = ExtResource("1_lrq5r")
+
+[node name="DemoScene" type="Node3D" parent="." unique_id=1577429247]
+
+[node name="Player" parent="DemoScene" unique_id=1304744055 instance=ExtResource("2_21dfl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0669594, -1.67774, 2.26816)
+
+[node name="Platforms" type="Node3D" parent="DemoScene" unique_id=1060914071]
+
+[node name="PlatformRed3" parent="DemoScene/Platforms" unique_id=960887178 instance=ExtResource("2_4lh3q")]
+transform = Transform3D(8, 0, 0, 0, 0.8, 0, 0, 0, 8, -1.23876, -2.34338, 2.01316)
+
+[node name="Environment" type="Node3D" parent="DemoScene" unique_id=578435602]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="DemoScene/Environment" unique_id=1333947999]
+environment = SubResource("Environment_g4ka7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="DemoScene/Environment" unique_id=1925067184]
+transform = Transform3D(-0.898603, 0.438763, 5.04705e-08, 0.146657, 0.300359, 0.942484, 0.413527, 0.846919, -0.334251, 9.04457, 0.391051, -11.1294)
+light_bake_mode = 1
+directional_shadow_mode = 0
+sky_mode = 1
+
+[node name="Extras" type="Node3D" parent="DemoScene" unique_id=443711358]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.10261, 2.74938)
+
+[node name="SpawnPosition" type="Marker3D" parent="DemoScene/Extras" unique_id=1860977595]
+unique_name_in_owner = true
+
+[node name="Coins" type="Node3D" parent="DemoScene" unique_id=1970150043]
+
+[node name="Coin" parent="DemoScene/Coins" unique_id=492473930 instance=ExtResource("5_4fiv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.53676, -1.34338, 4.09245)
+
+[node name="Coin2" parent="DemoScene/Coins" unique_id=1387441311 instance=ExtResource("5_4fiv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.53376, -1.34338, 0.37746)
+
+[node name="Coin3" parent="DemoScene/Coins" unique_id=1747429716 instance=ExtResource("5_4fiv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.88324, -1.34338, 0.591199)
+
+[node name="Coin4" parent="DemoScene/Coins" unique_id=932452128 instance=ExtResource("5_4fiv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.52115, -1.34338, -0.782873)
+
+[node name="Coin5" parent="DemoScene/Coins" unique_id=1080864082 instance=ExtResource("5_4fiv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.70901, -1.34338, 5.01688)
+
+[node name="Coin6" parent="DemoScene/Coins" unique_id=930926567 instance=ExtResource("5_4fiv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.33098, -1.34338, 5.84756)
+
+[node name="GameManager" type="Node3D" parent="DemoScene" unique_id=2102322254]
+script = ExtResource("6_8fvkd")
+
+[node name="DeadZone" type="Area3D" parent="DemoScene" unique_id=1283906837]
+script = ExtResource("4_8ry15")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DemoScene/DeadZone" unique_id=1560877849]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -22, 0)
+shape = SubResource("BoxShape3D_asf4q")
+
+[node name="UserInterface" type="CanvasLayer" parent="DemoScene" unique_id=532714683]
+
+[node name="GameUI" type="Control" parent="DemoScene/UserInterface" unique_id=763714246]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_x8whp")
+
+[node name="CoinTexture" type="TextureRect" parent="DemoScene/UserInterface/GameUI" unique_id=388359745]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 31.0
+offset_right = 122.0
+offset_bottom = 121.0
+texture = ExtResource("7_ow7xm")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="CoinsLabel" type="Label" parent="DemoScene/UserInterface/GameUI" unique_id=2047159135]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 50.0
+offset_right = 193.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(0.996094, 0.710938, 0.261719, 1)
+theme_override_colors/font_outline_color = Color(0.644531, 0.410156, 0.1875, 1)
+theme_override_constants/outline_size = 24
+theme_override_fonts/font = SubResource("SystemFont_1ixsq")
+theme_override_font_sizes/font_size = 48
+text = "X 3"
+label_settings = SubResource("LabelSettings_igq7x")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="." unique_id=488135796]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 2.08165e-12, 5, 13)
+
+[node name="LeftController" type="XRController3D" parent="." unique_id=514513583]
+tracker = &"left_hand"
+pose = &"grip"
+
+[node name="RightController" type="XRController3D" parent="." unique_id=1388281926]
+tracker = &"right_hand"
+pose = &"grip"
+
+[connection signal="body_entered" from="DemoScene/DeadZone" to="DemoScene/DeadZone" method="_on_body_entered"]
+[connection signal="button_released" from="LeftController" to="DemoScene/Player" method="_on_controller_button_released"]
+[connection signal="button_released" from="RightController" to="DemoScene/Player" method="_on_controller_button_released"]
