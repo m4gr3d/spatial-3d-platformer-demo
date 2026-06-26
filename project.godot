@@ -79,7 +79,7 @@ mouse_visible={
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 environment/ssao/quality=0
-anti_aliasing/quality/msaa_3d=1
+anti_aliasing/quality/msaa_3d=2
 environment/subsurface_scattering/subsurface_scattering_quality=0
 environment/screen_space_reflection/roughness_quality=0
 
@@ -87,9 +87,8 @@ environment/screen_space_reflection/roughness_quality=0
 
 openxr/enabled=true
 openxr/reference_space=2
-openxr/foveation_level=0
+openxr/foveation_level=1
+openxr/foveation_dynamic=true
 openxr/extensions/spatial_container/enabled=true
 shaders/enabled=true
-openxr/extensions/aperture_type=2
 openxr/extensions/androidxr/spatial_trackpad_interaction=true
-openxr/extensions/androidxr/mouse_interaction=true

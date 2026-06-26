@@ -9,8 +9,15 @@
 [ext_resource type="Texture2D" uid="uid://r21u5e70vw6t" path="res://Assets/Textures/coin.png" id="7_ow7xm"]
 [ext_resource type="Script" uid="uid://diw6vt2iv8le" path="res://Scripts/GameUI.gd" id="7_x8whp"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_okl2h"]
+sky_top_color = Color(0.72539854, 0.2799977, 0.28926173, 1)
+
+[sub_resource type="Sky" id="Sky_r4wj5"]
+sky_material = SubResource("ProceduralSkyMaterial_okl2h")
+
 [sub_resource type="Environment" id="Environment_g4ka7"]
 background_color = Color(0.764706, 0.764706, 0.764706, 1)
+sky = SubResource("Sky_r4wj5")
 ambient_light_source = 2
 ambient_light_color = Color(0.662745, 0.694118, 0.772549, 1)
 ambient_light_energy = 1.15
@@ -31,10 +38,12 @@ size = Vector3(128, 17, 112)
 
 [sub_resource type="SystemFont" id="SystemFont_1ixsq"]
 font_names = PackedStringArray("Star Choco")
+subpixel_positioning = 0
 multichannel_signed_distance_field = true
 
 [sub_resource type="SystemFont" id="SystemFont_656xb"]
 font_names = PackedStringArray("Star Choco")
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_igq7x"]
 font = SubResource("SystemFont_656xb")
@@ -145,6 +154,13 @@ pose = &"grip"
 tracker = &"right_hand"
 pose = &"grip"
 
+[node name="SpatialTrackpad" type="XRController3D" parent="." unique_id=81604660]
+tracker = &"/user/spatial_trackpad"
+show_when_tracked = true
+
 [connection signal="body_entered" from="DemoScene/DeadZone" to="DemoScene/DeadZone" method="_on_body_entered"]
 [connection signal="button_released" from="LeftController" to="DemoScene/Player" method="_on_controller_button_released"]
 [connection signal="button_released" from="RightController" to="DemoScene/Player" method="_on_controller_button_released"]
+[connection signal="button_pressed" from="SpatialTrackpad" to="DemoScene/Player" method="_on_spatial_trackpad_button_pressed"]
+[connection signal="button_released" from="SpatialTrackpad" to="DemoScene/Player" method="_on_spatial_trackpad_button_released"]
+[connection signal="input_float_changed" from="SpatialTrackpad" to="DemoScene/Player" method="_on_spatial_trackpad_input_float_changed"]

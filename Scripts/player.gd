@@ -32,10 +32,16 @@ var can_double_jump = false
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 
 var left_xr_controller: XRController3D = null
+var xr_trackpad: XRController3D = null
+
+var xr_trackpad_touched := false
+var xr_trackpad_origin := Vector2(0, 0)
+
 # ---------- FUNCTIONS ---------- #
 
 func _ready() -> void:
 	left_xr_controller = get_node_or_null("/root/World/LeftController")
+	xr_trackpad = get_node_or_null("/root/World/SpatialTrackpad")
 
 func _process(delta):
 	player_animations()
@@ -92,12 +98,20 @@ func jumpTween():
 
 # Get Player Input
 func get_input(_delta):
+	var x_value := Input.get_axis("move_left", "move_right")
+	var y_value := Input.get_axis("move_forward", "move_back")
 	if left_xr_controller:
 		var joystick_value = left_xr_controller.get_vector2("primary")
-		move_player(joystick_value.x, -joystick_value.y)
-	else:
-		print("Unable to retrieve left xr controller")
-		move_player(Input.get_axis("move_left", "move_right"), Input.get_axis("move_forward", "move_back"))
+		x_value += joystick_value.x
+		y_value += -joystick_value.y
+	
+	if xr_trackpad and xr_trackpad_touched:
+		var current_pos = xr_trackpad.get_vector2("primary")
+		var delta_pos = 3 * (current_pos - xr_trackpad_origin)
+		x_value += delta_pos.x
+		y_value += delta_pos.y
+	
+	move_player(x_value, y_value)
 
 func move_player(x_direction: float, z_direction: float) -> void:
 	var move_direction := Vector3.ZERO
@@ -122,6 +136,31 @@ func player_animations():
 		else:
 			animation.play("Idle", 0.5)
 
-func _on_controller_button_released(name: String) -> void:
-	if name == "ax_button":
+func _on_controller_button_released(action_name: String) -> void:
+	if action_name == "ax_button":
 		jump_player()
+
+
+func _on_spatial_trackpad_button_pressed(action_name: String) -> void:
+	if action_name == "primary_touch":
+		xr_trackpad_touched = true
+		xr_trackpad_origin = xr_trackpad.get_vector2("primary")
+
+
+func _on_spatial_trackpad_button_released(action_name: String) -> void:
+	if action_name == "primary_touch":
+		xr_trackpad_touched = false
+	
+	if action_name == "ax_button":
+		jump_player()
+
+
+var jump_triggered = false
+func _on_spatial_trackpad_input_float_changed(action_name: String, value: float) -> void:
+	if action_name == "trigger":
+		if value >= 0.25:
+			if not jump_triggered:
+				jump_player()
+				jump_triggered = true
+		else:
+			jump_triggered = false

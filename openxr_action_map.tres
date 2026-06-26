@@ -3,7 +3,7 @@
 [sub_resource type="OpenXRAction" id="OpenXRAction_yf5ui"]
 resource_name = "trigger"
 localized_name = "Trigger"
-toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right")
+toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right", "/user/spatial_trackpad")
 
 [sub_resource type="OpenXRAction" id="OpenXRAction_p8rr8"]
 resource_name = "trigger_click"
@@ -37,7 +37,7 @@ toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right")
 resource_name = "primary"
 localized_name = "Primary joystick/thumbstick/trackpad"
 action_type = 2
-toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right")
+toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right", "/user/spatial_trackpad")
 
 [sub_resource type="OpenXRAction" id="OpenXRAction_5mtij"]
 resource_name = "primary_click"
@@ -49,7 +49,7 @@ toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right")
 resource_name = "primary_touch"
 localized_name = "Primary joystick/thumbstick/trackpad touching"
 action_type = 0
-toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right")
+toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right", "/user/spatial_trackpad")
 
 [sub_resource type="OpenXRAction" id="OpenXRAction_5k228"]
 resource_name = "secondary"
@@ -85,7 +85,7 @@ toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right")
 resource_name = "ax_button"
 localized_name = "A/X button"
 action_type = 0
-toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right")
+toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right", "/user/spatial_trackpad")
 
 [sub_resource type="OpenXRAction" id="OpenXRAction_2akvk"]
 resource_name = "ax_touch"
@@ -448,8 +448,25 @@ binding_path = "/user/eyes_ext/input/gaze_ext/pose"
 interaction_profile_path = "/interaction_profiles/ext/eye_gaze_interaction"
 bindings = [SubResource("OpenXRIPBinding_iq5kn")]
 
+[sub_resource type="OpenXRIPBinding" id="OpenXRIPBinding_6ivru"]
+action = SubResource("OpenXRAction_edhk6")
+binding_path = "/user/spatial_trackpad/input/trackpad"
+
+[sub_resource type="OpenXRIPBinding" id="OpenXRIPBinding_vfhwq"]
+action = SubResource("OpenXRAction_qseoq")
+binding_path = "/user/spatial_trackpad/input/trackpad/click"
+
+[sub_resource type="OpenXRIPBinding" id="OpenXRIPBinding_5w03k"]
+action = SubResource("OpenXRAction_t507n")
+binding_path = "/user/spatial_trackpad/input/trackpad/touch"
+
+[sub_resource type="OpenXRIPBinding" id="OpenXRIPBinding_clvbf"]
+action = SubResource("OpenXRAction_yf5ui")
+binding_path = "/user/spatial_trackpad/input/trackpad/force"
+
 [sub_resource type="OpenXRInteractionProfile" id="OpenXRInteractionProfile_6ivru"]
 interaction_profile_path = "/interaction_profiles/android/spatial_trackpad_interaction_androidx1"
+bindings = [SubResource("OpenXRIPBinding_6ivru"), SubResource("OpenXRIPBinding_vfhwq"), SubResource("OpenXRIPBinding_5w03k"), SubResource("OpenXRIPBinding_clvbf")]
 
 [resource]
 action_sets = [SubResource("OpenXRActionSet_32nje")]
