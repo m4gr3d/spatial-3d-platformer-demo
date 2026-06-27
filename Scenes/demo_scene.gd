@@ -49,7 +49,7 @@ func _update_scale_from_bounds():
 		_update_scale(bounds)
 
 
-func _on_spatial_container_bounds_changed(spatial_container_rid: RID, updated_bounds: Vector3) -> void:
+func _on_spatial_container_bounds_changed(spatial_container_rid: RID, infinite_bounds: bool, updated_bounds: Vector3) -> void:
 	_update_scale(updated_bounds)
 
 
@@ -60,7 +60,7 @@ func _update_scale(bounds: Vector3) -> void:
 	world_scale = 20 / min_dimension
 
 
-func _on_spatial_container_interactability_changed(spatial_container_rid: RID, anyInteractable) -> void:
+func _on_spatial_container_interactability_changed(spatial_container_rid: RID, anyInteractable: bool) -> void:
 	print("Interactability changed to " + str(anyInteractable))
 
 
