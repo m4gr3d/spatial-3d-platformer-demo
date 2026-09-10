@@ -1,7 +1,7 @@
 extends XROrigin3D
 
 ## Current XR interface
-var xr_interface: XRInterface
+var xr_interface: OpenXRInterface
 var xr_is_focused = false
 
 @onready var demo_scene = $DemoScene
@@ -44,12 +44,12 @@ func _ready() -> void:
 func _update_scale_from_bounds():
 	var spatial_container_ext = OpenXRSpatialContainerExtension
 	if spatial_container_ext:
-		print("FHK - Updating scale from bounds...")
+		print("Updating scale from bounds...")
 		var bounds = spatial_container_ext.get_spatial_container_bounds()
 		_update_scale(bounds)
 
 
-func _on_spatial_container_bounds_changed(spatial_container_rid: RID, infinite_bounds: bool, updated_bounds: Vector3) -> void:
+func _on_spatial_container_bounds_changed(_spatial_container_rid: RID, _infinite_bounds: bool, _bounds_mode: OpenXRSpatialContainerState.BoundsMode, updated_bounds: Vector3) -> void:
 	_update_scale(updated_bounds)
 
 
@@ -60,7 +60,7 @@ func _update_scale(bounds: Vector3) -> void:
 	world_scale = 20 / min_dimension
 
 
-func _on_spatial_container_interactability_changed(spatial_container_rid: RID, anyInteractable: bool) -> void:
+func _on_spatial_container_interactability_changed(_spatial_container_rid: RID, anyInteractable: bool) -> void:
 	print("Interactability changed to " + str(anyInteractable))
 
 
