@@ -175,7 +175,7 @@ mouse_visible={
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 environment/ssao/quality=0
-anti_aliasing/quality/msaa_3d=2
+anti_aliasing/quality/msaa_3d=1
 environment/subsurface_scattering/subsurface_scattering_quality=0
 environment/screen_space_reflection/roughness_quality=0
 
